@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ethers } from "ethers";
 import Greeter from "./artifacts/contracts/Greeter.sol/Greeter.json";
 import Token from "./artifacts/contracts/Token.sol/Token.json";
+import { Button, Input } from "@mui/material";
 
 const greeterAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 const tokenAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
@@ -74,26 +75,21 @@ const App = () => {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <button onClick={fetchGreeting}>Fetch Greeting</button>
-        <button onClick={setGreeting}>Set Greeting</button>
-        <input
-          onChange={(e) => setGreetingValue(e.target.value)}
-          placeholder="Set greeting"
-        />
+      <Button onClick={fetchGreeting}>Fetch Greeting</Button>
+      <Button onClick={setGreeting}>Set Greeting</Button>
+      <Input
+        onChange={(e) => setGreetingValue(e.target.value)}
+        placeholder="Set greeting"
+      />
 
-        <br />
-        <button onClick={getBalance}>Get Balance</button>
-        <button onClick={sendCoins}>Send Coins</button>
-        <input
-          onChange={(e) => setUserAccount(e.target.value)}
-          placeholder="Account ID"
-        />
-        <input
-          onChange={(e) => setAmount(e.target.value)}
-          placeholder="Amount"
-        />
-      </header>
+      <br />
+      <Button onClick={getBalance}>Get Balance</Button>
+      <Button onClick={sendCoins}>Send Coins</Button>
+      <Input
+        onChange={(e) => setUserAccount(e.target.value)}
+        placeholder="Account ID"
+      />
+      <Input onChange={(e) => setAmount(e.target.value)} placeholder="Amount" />
     </div>
   );
 };
