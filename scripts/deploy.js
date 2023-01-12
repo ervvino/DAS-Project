@@ -18,7 +18,7 @@ const main = async () => {
 
   console.log("Greeter deployed to:", issuingAuthorityContract.address);
 };
-greeissuingAuthorityter
+
 main()
   .then(() => process.exit(0))
   .catch((error) => {
