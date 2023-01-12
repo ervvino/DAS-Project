@@ -1,8 +1,11 @@
-import abi from '../artifacts/contracts/IssuingAuthority.sol/IssuingAuthority.json';
+import abi from "../artifacts/contracts/IssuingAuthority.sol/IssuingAuthority.json";
 import { ethers } from "ethers";
 import "../App.css";
 import { Fragment, useState } from "react";
 import UploadComponent from "../components/Upload";
+import WalletConnectedDialog from "../components/WalletConnectedDialog";
+import { connectWallet } from "../walletFunctions";
+import { Button } from "@mui/material";
 
 const UploadView = () => {
   // Contract Address & ABI
@@ -11,84 +14,43 @@ const UploadView = () => {
   const [selectedFile, setSelectedFile] = useState();
   const [currentAccount, setCurrentAccount] = useState("");
 
-  // Wallet connection logic
-  const isWalletConnected = async () => {
-    try {
-      const { ethereum } = window;
+  const issuingAuthority = async () => {
+    const { ethereum } = window;
 
-      const accounts = await ethereum.request({method: 'eth_accounts'})
-      console.log("accounts: ", accounts);
-
-      if (accounts.length > 0) {
-        const account = accounts[0];
-        console.log("wallet is connected! " + account);
-      } else {
-        console.log("make sure MetaMask is connected");
-      }
-    } catch (error) {
-      console.log("error: ", error);
+    if (!ethereum) {
+      throw new Error("missing ethereum on window object");
     }
-  }
+    const provider = new ethers.providers.Web3Provider(ethereum, "any");
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(contractAddress, contractABI, signer);
 
-  const connectWallet = async () => {
-    try {
-      const {ethereum} = window;
+    const { hash } = selectedFile;
+    const validity = true;
 
-      if (!ethereum) {
-        console.log("please install MetaMask");
-      }
+    console.log("creating diploma..");
 
-      const accounts = await ethereum.request({
-        method: 'eth_requestAccounts'
-      });
-
-      setCurrentAccount(accounts[0]);
-    } catch (error) {
-      console.log(error);
+    if (!hash || hash.length !== 32) {
+      throw new Error("validity or hash empty");
     }
-  }
 
-  const IssuingAuthority = async () => {
-    try {
-      const {ethereum} = window;
+    const diplomaTxn = await contract.createDiploma(validity, hash);
 
-      if (ethereum) {
-        const provider = new ethers.providers.Web3Provider(ethereum, "any");
-        const signer = provider.getSigner();
-        const buyMeACoffee = new ethers.Contract(
-          contractAddress,
-          contractABI,
-          signer
-        );
+    await diplomaTxn.wait();
 
-        const {hash} = selectedFile;
-        const validity = true;
-
-        console.log("creating diploma..")
-
-        if(!validity || !hash || hash.length !== 32){
-          throw new Error('validity or hash empty')
-        }
-
-        const diplomaTxn = await IssuingAuthority.createDiploma(
-          validity,
-          hash
-        );
-
-        await diplomaTxn.wait();
-
-        console.log("mined ", diplomaTxn.hash);
-
-        console.log("diploma created!");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    console.log("mined ", diplomaTxn.hash);
+    console.log("diploma created!");
   };
 
   return (
     <Fragment>
+      <WalletConnectedDialog
+        isAccountConnected={!!currentAccount}
+        connect={() => connectWallet(setCurrentAccount)}
+      />
       <UploadComponent setSelectedFile={setSelectedFile} />
+      <Button disabled={!selectedFile.hash} onClick={issuingAuthority}>
+        Upload Document to Blockchain
+      </Button>
     </Fragment>
   );
 };
