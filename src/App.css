@@ -13,13 +13,20 @@ body {
   height: 100%;
   width: 100%;
   display: flex;
+  color: var(--pruple2);
+  background-color: var(--yellow);
 }
 
 #pdfUpload {
   display: none;
 }
 
-.primaryButton {
+.MuiButton-root {
+  color: var(--pruple2) !important;
+}
+
+.MuiButton-outlinedPrimary {
+  color: var(--pruple2) !important;
 }
 
 .App {
@@ -29,7 +36,6 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  background-color: var(--yellow);
 }
 
 .introTextDiv {

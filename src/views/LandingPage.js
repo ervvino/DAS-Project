@@ -7,6 +7,10 @@ const LandingPage = () => {
   const navigate = useNavigate();
   const navigateTo = (path = "/") => navigate(path);
 
+  if (typeof window.ethereum === "undefined") {
+    navigateTo("error");
+  }
+
   return (
     <Fragment>
       <div className="App">
