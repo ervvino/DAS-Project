@@ -7,12 +7,13 @@ import {
   DialogTitle,
 } from "@mui/material";
 import "../App.css";
+import { isWalletConnected } from "../walletFunctions.js";
 
-const WalletConnectedDialog = ({ isWalletConnected, connect }) => {
+const WalletConnectedDialog = ({ isWalletConnected: iwc, connect }) => {
   console.log({ isWalletConnected, connect });
   return (
     <Dialog
-      open={!isWalletConnected}
+      open={!isWalletConnected && !iwc}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
