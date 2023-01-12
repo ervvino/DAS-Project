@@ -1,5 +1,5 @@
 // Wallet connection logic
-export const isWalletConnected = async () => {
+const isWalletConnected = async () => {
   try {
     const { ethereum } = window;
 
