@@ -69,4 +69,8 @@ contract IssuingAuthority {
         require(owner.send(address(this).balance));
     }
     */
+
+   function verifyDiploma(string memory _documentFingerprint) public view returns (Diploma memory) {
+    return diplomas[_documentFingerprint];
+   }
 }
