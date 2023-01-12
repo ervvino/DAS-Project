@@ -1,7 +1,7 @@
 import "../App.css";
 import abi from "../artifacts/contracts/IssuingAuthority.sol/IssuingAuthority.json";
 import { ethers } from "ethers";
-import { Fragment, useState } from "react";
+import React, { Fragment, useState } from "react";
 import WalletConnectedDialog from "../components/WalletConnectedDialog";
 import { connectWallet } from "../walletFunctions";
 import { Button } from "@mui/material";
@@ -43,7 +43,12 @@ const VerifyView = () => {
         Verify
       </Button>
 
-      {fingerprint && { validity, fingerprint }}
+      {fingerprint && (
+        <div>
+          <p>{validity + ""}</p>
+          <p>{fingerprint}</p>
+        </div>
+      )}
     </Fragment>
   );
 };
