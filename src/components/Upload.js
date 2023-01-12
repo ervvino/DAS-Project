@@ -8,19 +8,22 @@ const UploadComponent = ({ setSelectedFile }) => {
     document.getElementById("pdfUpload").click();
   };
 
-  const changeHandler = (event) => {
+  const changeHandler = async (event) => {
+    const all = {file: null, hash: null}
     const file = event.target.files[0];
-    setSelectedFile(file);
+    all.file = file;
 
     GlobalWorkerOptions.workerSrc = "/pdf.worker.js";
 
     const path = (window.URL || window.webkitURL).createObjectURL(file);
     const doc = getDocument(path);
 
-    doc.promise
-      .then((blob) => blob.fingerprints[0])
-      .then(console.log)
-      .catch(console.error);
+    doc.promise.then(f => {
+    all.hash = f.fingerprints[0];
+    
+    setSelectedFile(all);
+    console.log(all);})
+      
   };
 
   return (
