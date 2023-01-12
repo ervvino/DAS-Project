@@ -14,6 +14,45 @@ const UploadView = () => {
   const [selectedFile, setSelectedFile] = useState();
   const [currentAccount, setCurrentAccount] = useState("");
 
+  // Wallet connection logic
+  const isWalletConnected = async () => {
+    try {
+      const { ethereum } = window;
+
+      const accounts = await ethereum.request({method: 'eth_accounts'})
+      console.log("accounts: ", accounts);
+
+      if (accounts.length > 0) {
+        const account = accounts[0];
+        console.log("wallet is connected! " + account);
+      } else {
+        console.log("make sure MetaMask is connected");
+      }
+    } catch (error) {
+      console.log("error: ", error);
+    }
+  }
+
+  const connectWallet = async () => {
+    try {
+      const {ethereum} = window;
+
+      if (!ethereum) {
+        console.log("please install MetaMask");
+      }
+
+      const accounts = await ethereum.request({
+        method: 'eth_requestAccounts'
+      });
+
+      setCurrentAccount(accounts[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+
   const issuingAuthority = async () => {
     const { ethereum } = window;
 
@@ -44,11 +83,11 @@ const UploadView = () => {
   return (
     <Fragment>
       <WalletConnectedDialog
-        isAccountConnected={!!currentAccount}
+        isWalletConnected={!!currentAccount}
         connect={() => connectWallet(setCurrentAccount)}
       />
       <UploadComponent setSelectedFile={setSelectedFile} />
-      <Button disabled={!selectedFile.hash} onClick={issuingAuthority}>
+      <Button disabled={!selectedFile?.hash} onClick={issuingAuthority}>
         Upload Document to Blockchain
       </Button>
     </Fragment>

@@ -8,11 +8,11 @@ import {
 } from "@mui/material";
 import "../App.css";
 
-const WalletConnectedDialog = ({ isAccountConnected, connect }) => {
-  console.log({ isAccountConnected, connect });
+const WalletConnectedDialog = ({ isWalletConnected, connect }) => {
+  console.log({ isWalletConnected, connect });
   return (
     <Dialog
-      open={!isAccountConnected}
+      open={!isWalletConnected}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
