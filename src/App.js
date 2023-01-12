@@ -16,14 +16,9 @@ import { connectWallet } from "./walletFunctions";
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState("");
 
-  useEffect(() => {
-    const listenMMAccount = async () => {
-      window.ethereum.on("accountsChanged", (accounts) => {
-        setCurrentAccount([0]);
-      });
-    };
-    listenMMAccount();
-  }, []);
+  window.ethereum.on("accountsChanged", (accounts) => {
+    setCurrentAccount(accounts[0]);
+  });
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -39,7 +34,7 @@ const App = () => {
   return (
     <Fragment>
       <WalletConnectedDialog
-        isWalletConnected={!!currentAccount}
+        isWalletConnected={!!currentAccount || !!(window.ethereum._state.accounts?.[0])}
         connect={() => connectWallet(setCurrentAccount)}
       />
       <RouterProvider router={router} />

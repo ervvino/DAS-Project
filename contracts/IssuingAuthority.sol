@@ -64,13 +64,14 @@ contract IssuingAuthority {
     }
 
     /**
-     * @dev send the entire balance stored in this contract to the owner
-    function withdrawTips() public {
-        require(owner.send(address(this).balance));
+     * @dev change to readDiploma, returrns diplomaObject
     }
     */
-
    function verifyDiploma(string memory _documentFingerprint) public view returns (Diploma memory) {
     return diplomas[_documentFingerprint];
    }
+
+   /**
+    * @todo write verifyDiploma function which just retursn true or false validity for a fingerprint
+    */
 }
