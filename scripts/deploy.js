@@ -11,17 +11,12 @@ const main = async () => {
 
   console.log("Deploying contracts with the account:", deployer.address);
 
-  const greeter = await hre.ethers.getContractFactory("Greeter");
-  const greeterContract = await greeter.deploy("Hello, World!");
+  const issuingAuthority = await hre.ethers.getContractFactory("IssuingAuthority");
+  const issuingAuthorityContract = await issuingAuthority.deploy();
 
-  const token = await hre.ethers.getContractFactory("Token");
-  const tokenContract = await token.deploy("TestToken", "TT");
+  await issuingAuthorityContract.deployed();
 
-  await greeterContract.deployed();
-  await tokenContract.deployed();
-
-  console.log("Greeter deployed to:", greeterContract.address);
-  console.log("Token deployed to:", token.address);
+  console.log("Greeter deployed to:", issuingAuthorityContract.address);
 };
 
 main()
