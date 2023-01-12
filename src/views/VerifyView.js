@@ -12,6 +12,8 @@ const VerifyView = () => {
   const contractABI = abi.abi;
   const [selectedFile, setSelectedFile] = useState();
   const [currentAccount, setCurrentAccount] = useState("");
+  const [fingerprint, setFingerprint] = useState("");
+  const [validity, setValidity] = useState(false);
 
   const verify = async () => {
     const { ethereum } = window;
@@ -29,11 +31,10 @@ const VerifyView = () => {
       throw new Error("validity or hash empty");
     }
 
-    const diplomaTxn = await contract.verifyDiploma(hash);
+    const value = await contract.verifyDiploma(hash);
 
-    const value = await diplomaTxn.wait();
-
-    console.log({ value });
+    setValidity(value.validity);
+    setFingerprint(value.documentFingerprint);
   };
 
   return (
@@ -46,6 +47,8 @@ const VerifyView = () => {
       <Button disabled={!selectedFile?.hash} onClick={verify}>
         Verify
       </Button>
+
+      {fingerprint && { validity, fingerprint }}
     </Fragment>
   );
 };
