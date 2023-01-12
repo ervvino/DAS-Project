@@ -11,7 +11,6 @@ const VerifyView = () => {
   const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
   const contractABI = abi.abi;
   const [selectedFile, setSelectedFile] = useState();
-  const [currentAccount, setCurrentAccount] = useState("");
   const [fingerprint, setFingerprint] = useState("");
   const [validity, setValidity] = useState(false);
 
@@ -39,10 +38,6 @@ const VerifyView = () => {
 
   return (
     <Fragment>
-      <WalletConnectedDialog
-        isWalletConnected={!!currentAccount}
-        connect={() => connectWallet(setCurrentAccount)}
-      />
       <UploadComponent setSelectedFile={setSelectedFile} />
       <Button disabled={!selectedFile?.hash} onClick={verify}>
         Verify

@@ -1,5 +1,5 @@
 import "./App.css";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -10,8 +10,12 @@ import LandingPage from "./views/LandingPage";
 import UploadView from "./views/UploadView";
 import VerifyView from "./views/VerifyView";
 import ErrorView from "./views/ErrorView";
+import WalletConnectedDialog from "./components/WalletConnectedDialog";
+import { connectWallet } from "./walletFunctions";
 
 const App = () => {
+  const [currentAccount, setCurrentAccount] = useState("");
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Fragment>
@@ -23,7 +27,19 @@ const App = () => {
     )
   );
 
-  return <RouterProvider router={router} />;
+  window.ethereum.on("accountsChanged", (accounts) => {
+    setCurrentAccount([0]);
+  });
+
+  return (
+    <Fragment>
+      <WalletConnectedDialog
+        isWalletConnected={!!currentAccount}
+        connect={() => connectWallet(setCurrentAccount)}
+      />
+      <RouterProvider router={router} />
+    </Fragment>
+  );
 };
 
 export default App;

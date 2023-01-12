@@ -43,10 +43,6 @@ const UploadView = () => {
 
   return (
     <Fragment>
-      <WalletConnectedDialog
-        isWalletConnected={!!currentAccount}
-        connect={() => connectWallet(setCurrentAccount)}
-      />
       <UploadComponent setSelectedFile={setSelectedFile} />
       <Button disabled={!selectedFile?.hash} onClick={issuingAuthority}>
         Upload Document to Blockchain
