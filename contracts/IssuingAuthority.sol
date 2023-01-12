@@ -12,6 +12,9 @@ contract IssuingAuthority {
         bool validity
     );
     
+    // isInitialized hinzufügen, damit könnte man zwischen den fällen:
+    // Urkunde hat mal existiert, aber ist jetzt invalidiert &
+    // Urkunde hat noch nie existiert unterscheiden if needed
     // Diploma struct.
     struct Diploma {
         address authorityWalletId;
