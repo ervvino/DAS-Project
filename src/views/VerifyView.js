@@ -2,8 +2,6 @@ import "../App.css";
 import abi from "../artifacts/contracts/IssuingAuthority.sol/IssuingAuthority.json";
 import { ethers } from "ethers";
 import React, { Fragment, useState } from "react";
-import WalletConnectedDialog from "../components/WalletConnectedDialog";
-import { connectWallet } from "../walletFunctions";
 import { Button } from "@mui/material";
 import UploadComponent from "../components/Upload";
 

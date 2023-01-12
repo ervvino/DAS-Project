@@ -1,5 +1,5 @@
 import "./App.css";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -16,6 +16,15 @@ import { connectWallet } from "./walletFunctions";
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState("");
 
+  useEffect(() => {
+    const listenMMAccount = async () => {
+      window.ethereum.on("accountsChanged", (accounts) => {
+        setCurrentAccount([0]);
+      });
+    };
+    listenMMAccount();
+  }, []);
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Fragment>
@@ -26,10 +35,6 @@ const App = () => {
       </Fragment>
     )
   );
-
-  window.ethereum.on("accountsChanged", (accounts) => {
-    setCurrentAccount([0]);
-  });
 
   return (
     <Fragment>
