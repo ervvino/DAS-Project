@@ -41,18 +41,17 @@ contract IssuingAuthority {
 
     /**
      * @dev create a new diploma issued by authority
-     * @param _validity name of diploma
+     * @param _validity validity of diploma
      * @param _documentFingerprint a nice message from the purchaser
      */
-    function createDiploma(string memory _validity, string memory _documentFingerprint) public payable {
-        // Must accept more than 0 ETH for a coffee.
+    function createDiploma(bool _validity, string memory _documentFingerprint) public payable {
         require(msg.sender == owner, "Only the owner is authorised to add ne diplomas");
 
         diplomas[_documentFingerprint] = Diploma(
             msg.sender,
             block.timestamp,
             _documentFingerprint,
-            _validity,
+            _validity
         );
 
         // Emit a NewDiploma event with details about the memo.
@@ -60,7 +59,7 @@ contract IssuingAuthority {
             msg.sender,
             block.timestamp,
             _documentFingerprint,
-            _validity,
+            _validity
         );
     }
 
