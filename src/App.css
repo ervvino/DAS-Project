@@ -83,3 +83,8 @@ p {
 .MuiSnackbarContent-root {
   background-color: var(--pruple) !important;
 }
+
+.disabled {
+  background-color: grey;
+  pointer-events: none;
+}

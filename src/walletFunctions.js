@@ -34,3 +34,26 @@ export const connectWallet = async (setCurrentAccount) => {
     console.log(error);
   }
 };
+
+export const universityCheck = async (setDisabled, openSnackbar) => {
+  if (sessionStorage.getItem("checked")) {
+    return;
+  }
+  const value = await new Promise((res, rej) => {
+    window.setTimeout(() => {
+      const val = localStorage.getItem("uni");
+
+      if ((val || "").length === 0) {
+        localStorage.setItem("uni", true);
+        res(true);
+      }
+
+      res(val);
+    }, 1500);
+  });
+
+  sessionStorage.setItem("checked", true);
+
+  setDisabled(!value);
+  openSnackbar("University Wallet detected");
+};

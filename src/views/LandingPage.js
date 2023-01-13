@@ -1,11 +1,18 @@
 import "../App.css";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { universityCheck } from "../walletFunctions";
 
-const LandingPage = () => {
+const LandingPage = ({ openSnackbar }) => {
   const navigate = useNavigate();
   const navigateTo = (path = "/") => navigate(path);
+
+  const [isDisabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    universityCheck(setDisabled, openSnackbar);
+  }, [openSnackbar]);
 
   if (typeof window.ethereum === "undefined") {
     navigateTo("error");
@@ -18,8 +25,12 @@ const LandingPage = () => {
           <p>What do you want to do?</p>
         </div>
         <div className="introUploadDiv introBox">
-          <div className="glassBox">
-            <Button variant="outlined" onClick={() => navigateTo("upload")}>
+          <div className={`glassBox ${isDisabled && "disabled"}`}>
+            <Button
+              variant="outlined"
+              disabled={isDisabled}
+              onClick={() => navigateTo("upload")}
+            >
               Upload Diploma
             </Button>
           </div>
