@@ -14,6 +14,10 @@ const UploadView = ({ openSnackbar, closeSnackbar }) => {
   const [selectedFile, setSelectedFile] = useState();
   const [currentAccount, setCurrentAccount] = useState("");
 
+  window.ethereum.on("accountsChanged", (accounts) => {
+    setCurrentAccount(accounts[0]);
+  });
+
   const issuingAuthority = async () => {
     const { ethereum } = window;
 
@@ -45,6 +49,12 @@ const UploadView = ({ openSnackbar, closeSnackbar }) => {
 
   return (
     <div className="viewWrapper">
+      <WalletConnectedDialog
+        isWalletConnected={
+          !!currentAccount || !!window.ethereum._state.accounts?.[0]
+        }
+        connect={() => connectWallet(setCurrentAccount)}
+      />
       <UploadComponent
         setSelectedFile={setSelectedFile}
         openSnackbar={openSnackbar}

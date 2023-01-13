@@ -1,5 +1,5 @@
 import "./App.css";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -10,19 +10,11 @@ import LandingPage from "./views/LandingPage";
 import UploadView from "./views/UploadView";
 import VerifyView from "./views/VerifyView";
 import ErrorView from "./views/ErrorView";
-import WalletConnectedDialog from "./components/WalletConnectedDialog";
-import { connectWallet } from "./walletFunctions";
 import { Snackbar } from "@mui/material";
 
 const App = () => {
-  const [currentAccount, setCurrentAccount] = useState("");
   const [isSnackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
-
-  window.ethereum.on("accountsChanged", (accounts) => {
-    setCurrentAccount(accounts[0]);
-  });
-
   const handleSnackbarOpen = (message) => {
     setSnackbarOpen(true);
     setSnackbarMessage(message);
@@ -70,12 +62,6 @@ const App = () => {
 
   return (
     <div className="viewWrapper">
-      <WalletConnectedDialog
-        isWalletConnected={
-          !!currentAccount || !!window.ethereum._state.accounts?.[0]
-        }
-        connect={() => connectWallet(setCurrentAccount)}
-      />
       <RouterProvider router={router} />
       <Snackbar
         open={isSnackbarOpen}
