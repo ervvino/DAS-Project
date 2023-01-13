@@ -4,8 +4,6 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { universityCheck } from "../walletFunctions";
 
-let counter = 0;
-
 const LandingPage = ({ openSnackbar }) => {
   const navigate = useNavigate();
   const navigateTo = (path = "/") => navigate(path);

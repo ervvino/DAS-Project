@@ -2,8 +2,10 @@ import "../App.css";
 import abi from "../artifacts/contracts/IssuingAuthority.sol/IssuingAuthority.json";
 import { ethers } from "ethers";
 import React, { Fragment, useState } from "react";
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import UploadComponent from "../components/Upload";
+import { useNavigate } from "react-router-dom";
 
 const VerifyView = ({ openSnackbar, closeSnackbar }) => {
   const contractAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3";
@@ -11,6 +13,9 @@ const VerifyView = ({ openSnackbar, closeSnackbar }) => {
   const [selectedFile, setSelectedFile] = useState();
   const [validity, setValidity] = useState();
   const [showState, setShowState] = useState(false);
+
+  const navigate = useNavigate();
+  const navigateTo = (path = "/") => navigate(path);
 
   const verify = async () => {
     const { ethereum } = window;
@@ -37,6 +42,15 @@ const VerifyView = ({ openSnackbar, closeSnackbar }) => {
 
   return (
     <Fragment>
+      <IconButton
+        class="backButton"
+        onClick={() => navigateTo("/")}
+        color="primary"
+        aria-label="upload picture"
+        component="label"
+      >
+        <ArrowBackIcon />
+      </IconButton>
       <UploadComponent
         setSelectedFile={setSelectedFile}
         openSnackbar={openSnackbar}

@@ -2,12 +2,18 @@ import abi from "../artifacts/contracts/IssuingAuthority.sol/IssuingAuthority.js
 import { ethers } from "ethers";
 import "../App.css";
 import { Fragment, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import UploadComponent from "../components/Upload";
 import WalletConnectedDialog from "../components/WalletConnectedDialog";
 import { connectWallet } from "../walletFunctions";
 import { Button } from "@mui/material";
+import { IconButton } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const UploadView = ({ openSnackbar, closeSnackbar }) => {
+  const navigate = useNavigate();
+  const navigateTo = (path = "/") => navigate(path);
+
   // Contract Address & ABI
   const contractAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3";
   const contractABI = abi.abi;
@@ -49,6 +55,15 @@ const UploadView = ({ openSnackbar, closeSnackbar }) => {
 
   return (
     <div className="viewWrapper">
+      <IconButton
+        class="backButton"
+        onClick={() => navigateTo("/")}
+        color="primary"
+        aria-label="upload picture"
+        component="label"
+      >
+        <ArrowBackIcon />
+      </IconButton>
       <WalletConnectedDialog
         isWalletConnected={
           !!currentAccount || !!window.ethereum._state.accounts?.[0]

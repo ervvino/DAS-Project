@@ -78,6 +78,7 @@ p {
   height: 100%;
   width: 100%;
   gap: 5px;
+  cursor: pointer;
 }
 
 .MuiSnackbarContent-root {
@@ -87,4 +88,11 @@ p {
 .disabled {
   background-color: grey;
   pointer-events: none;
+}
+
+.backButton {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: var(--pruple);
 }
