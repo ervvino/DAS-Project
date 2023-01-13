@@ -48,7 +48,7 @@ contract IssuingAuthority {
      * @param _documentFingerprint a nice message from the purchaser
      */
     function createDiploma(bool _validity, string memory _documentFingerprint) public payable {
-        require(msg.sender == owner, "Only the owner is authorised to add ne diplomas");
+        require(msg.sender == owner, "Only the owner is authorised to add new diplomas");
 
         diplomas[_documentFingerprint] = Diploma(
             msg.sender,
@@ -68,9 +68,21 @@ contract IssuingAuthority {
 
     /**
      * @dev change to readDiploma, returrns diplomaObject
-    }
     */
    function verifyDiploma(string memory _documentFingerprint) public view returns (bool) {
     return diplomas[_documentFingerprint].validity;
    }
+
+   function revokeDiploma(string memory _documentFingerprint) public payable {
+    require(this.verifyDiploma(_documentFingerprint) == true, "Document already invalid or non-existend");
+    require(msg.sender == owner, "Only the owner is authorised to add new diplomas");
+
+    diplomas[_documentFingerprint] = Diploma(
+            msg.sender,
+            block.timestamp,
+            _documentFingerprint,
+            false
+        );
+   }
+
 }
