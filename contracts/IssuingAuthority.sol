@@ -70,11 +70,7 @@ contract IssuingAuthority {
      * @dev change to readDiploma, returrns diplomaObject
     }
     */
-   function verifyDiploma(string memory _documentFingerprint) public view returns (Diploma memory) {
-    return diplomas[_documentFingerprint];
+   function verifyDiploma(string memory _documentFingerprint) public view returns (bool) {
+    return diplomas[_documentFingerprint].validity;
    }
-
-   /**
-    * @todo write verifyDiploma function which just retursn true or false validity for a fingerprint
-    */
 }

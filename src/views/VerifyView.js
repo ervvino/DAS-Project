@@ -6,11 +6,11 @@ import { Button } from "@mui/material";
 import UploadComponent from "../components/Upload";
 
 const VerifyView = () => {
-  const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+  const contractAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3";
   const contractABI = abi.abi;
   const [selectedFile, setSelectedFile] = useState();
-  const [fingerprint, setFingerprint] = useState("");
-  const [validity, setValidity] = useState(false);
+  const [validity, setValidity] = useState();
+  const [showState, setShowState] = useState(false);
 
   const verify = async () => {
     const { ethereum } = window;
@@ -21,7 +21,7 @@ const VerifyView = () => {
     const provider = new ethers.providers.Web3Provider(ethereum, "any");
     const signer = provider.getSigner();
     const contract = new ethers.Contract(contractAddress, contractABI, signer);
-
+    
     const { hash } = selectedFile;
 
     if (!hash || hash.length !== 32) {
@@ -29,9 +29,9 @@ const VerifyView = () => {
     }
 
     const value = await contract.verifyDiploma(hash);
-
-    setValidity(value.validity);
-    setFingerprint(value.documentFingerprint);
+    console.log(value)
+    setValidity(value);
+    setShowState(true)
   };
 
   return (
@@ -47,7 +47,7 @@ const VerifyView = () => {
 
       {
         <div>
-          {!!selectedFile && (
+          {showState && (
             <Fragment>
               <p
                 style={{
@@ -57,15 +57,6 @@ const VerifyView = () => {
                 }}
               >
                 Validity: {validity + ""}
-              </p>
-              <p
-                style={{
-                  textDecoration: `underline 4px var(${
-                    validity ? "--green" : "--red"
-                  })`,
-                }}
-              >
-                Fingerprint: {fingerprint || "no fingerprint"}
               </p>
             </Fragment>
           )}

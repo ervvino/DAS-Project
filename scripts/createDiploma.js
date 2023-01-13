@@ -43,13 +43,15 @@ async function main() {
   // Check validity of the 2 contracts
   const dipl1 = await issuingAuthority.verifyDiploma("hashhier1");
   const dipl2 = await issuingAuthority.verifyDiploma("hashhier2");
+  const dipl3 = await issuingAuthority.verifyDiploma("66b5c3233d6369d7c3b8097ef1e304c2");
 
   // Check out the diplomas.
   console.log("== diplomas ==");
-  dipldate1 = new Date(dipl1.timestamp*1000);
-  dipldate2 = new Date(dipl2.timestamp*1000);
-  console.log(`Content of diploma1: Authority ${dipl1.authorityWalletId}, DateTime ${dipldate1}, Fingerprint ${dipl1.documentFingerprint}, Validity ${dipl1.validity}`);
-  console.log(`Content of diploma2: Authority ${dipl2.authorityWalletId}, DateTime ${dipldate2}, Fingerprint ${dipl2.documentFingerprint}, Validity ${dipl2.validity}`);
+  //dipldate1 = new Date(dipl1.timestamp*1000);
+  //dipldate2 = new Date(dipl2.timestamp*1000);
+  //console.log(`Content of diploma1: Authority ${dipl1.authorityWalletId}, DateTime ${dipldate1}, Fingerprint ${dipl1.documentFingerprint}, Validity ${dipl1.validity}`);
+  //console.log(`Content of diploma2: Authority ${dipl2.authorityWalletId}, DateTime ${dipldate2}, Fingerprint ${dipl2.documentFingerprint}, Validity ${dipl2.validity}`);
+  console.log(dipl3);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
