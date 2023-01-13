@@ -1,4 +1,6 @@
 // Wallet connection logic
+let counter = 0;
+
 const isWalletConnected = async () => {
   try {
     const { ethereum } = window;
@@ -35,10 +37,11 @@ export const connectWallet = async (setCurrentAccount) => {
   }
 };
 
-export const universityCheck = async (setDisabled, openSnackbar) => {
-  if (sessionStorage.getItem("checked")) {
-    return;
-  }
+export const universityCheck = async (
+  setDisabled,
+  openSnackbar,
+  setCounter
+) => {
   const value = await new Promise((res, rej) => {
     window.setTimeout(() => {
       const val = localStorage.getItem("uni");
@@ -52,8 +55,8 @@ export const universityCheck = async (setDisabled, openSnackbar) => {
     }, 1500);
   });
 
-  sessionStorage.setItem("checked", true);
+  setCounter(1);
 
-  setDisabled(!value);
+  setDisabled(!(value === "true"));
   openSnackbar("University Wallet detected");
 };
