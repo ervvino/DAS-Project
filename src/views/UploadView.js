@@ -1,7 +1,7 @@
 import abi from "../artifacts/contracts/IssuingAuthority.sol/IssuingAuthority.json";
 import { ethers } from "ethers";
 import "../App.css";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UploadComponent from "../components/Upload";
 import WalletConnectedDialog from "../components/WalletConnectedDialog";
@@ -19,10 +19,41 @@ const UploadView = ({ openSnackbar, closeSnackbar }) => {
   const contractABI = abi.abi;
   const [selectedFile, setSelectedFile] = useState();
   const [currentAccount, setCurrentAccount] = useState("");
+  const [isInChain, setInChain] = useState(false);
 
   window.ethereum.on("accountsChanged", (accounts) => {
     setCurrentAccount(accounts[0]);
   });
+
+  useEffect(() => {
+    (async () => {
+      if (!!selectedFile) {
+        const { ethereum } = window;
+
+        if (!ethereum) {
+          throw new Error("missing ethereum on window object");
+        }
+        const provider = new ethers.providers.Web3Provider(ethereum, "any");
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(
+          contractAddress,
+          contractABI,
+          signer
+        );
+
+        const { hash } = selectedFile;
+
+        if (!hash || hash.length !== 32) {
+          throw new Error("validity or hash empty");
+        }
+
+        const value = await contract.verifyDiploma(hash);
+        console.log(value);
+        setInChain(value);
+        value && openSnackbar("verification of document done");
+      }
+    })();
+  }, [selectedFile, setInChain, contractABI, contractAddress, openSnackbar]);
 
   const issuingAuthority = async () => {
     const { ethereum } = window;
@@ -53,6 +84,32 @@ const UploadView = ({ openSnackbar, closeSnackbar }) => {
     openSnackbar("Transaction done");
   };
 
+  const revoke = async () => {
+    const { ethereum } = window;
+
+    if (!ethereum) {
+      throw new Error("missing ethereum on window object");
+    }
+    const provider = new ethers.providers.Web3Provider(ethereum, "any");
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+    const { hash } = selectedFile;
+
+    if (!hash || hash.length !== 32) {
+      throw new Error("validity or hash empty");
+    }
+
+    const diplomaTxn = await contract.revokeDiploma(hash);
+
+    await diplomaTxn.wait();
+
+    console.log("mined ", diplomaTxn.hash);
+    console.log("diploma created!");
+
+    openSnackbar("Revoke done");
+  };
+
   return (
     <div className="viewWrapper">
       <IconButton
@@ -75,11 +132,18 @@ const UploadView = ({ openSnackbar, closeSnackbar }) => {
         openSnackbar={openSnackbar}
       />
       <Button
-        disabled={!selectedFile?.hash}
+        disabled={!selectedFile?.hash && isInChain}
         variant="outlined"
         onClick={issuingAuthority}
       >
         Upload Document to Blockchain
+      </Button>
+      <Button
+        disabled={!selectedFile?.hash && !isInChain}
+        variant="outlined"
+        onClick={revoke}
+      >
+        Revoke
       </Button>
     </div>
   );
