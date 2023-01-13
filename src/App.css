@@ -48,7 +48,12 @@ p {
 
 .introTextDiv {
   position: absolute;
-  top: 30%;
+  top: 10%;
+  height: 300px;
+}
+
+.introTextDiv > img:nth-child(1) {
+  height: 300px;
 }
 
 .introBox {

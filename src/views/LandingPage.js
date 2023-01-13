@@ -27,7 +27,7 @@ const LandingPage = ({ openSnackbar }) => {
     <Fragment>
       <div className="App">
         <div className="introTextDiv">
-          <p>What do you want to do?</p>
+          <img src="/logo.svg" />
         </div>
         <div className="introUploadDiv introBox">
           <div className={`glassBox ${isDisabled && "disabled"}`}>
