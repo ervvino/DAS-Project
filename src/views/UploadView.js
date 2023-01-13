@@ -7,7 +7,7 @@ import WalletConnectedDialog from "../components/WalletConnectedDialog";
 import { connectWallet } from "../walletFunctions";
 import { Button } from "@mui/material";
 
-const UploadView = () => {
+const UploadView = ({ openSnackbar, closeSnackbar }) => {
   // Contract Address & ABI
   const contractAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3";
   const contractABI = abi.abi;
@@ -39,11 +39,16 @@ const UploadView = () => {
 
     console.log("mined ", diplomaTxn.hash);
     console.log("diploma created!");
+
+    openSnackbar("Transaction done");
   };
 
   return (
     <div className="viewWrapper">
-      <UploadComponent setSelectedFile={setSelectedFile} />
+      <UploadComponent
+        setSelectedFile={setSelectedFile}
+        openSnackbar={openSnackbar}
+      />
       <Button
         disabled={!selectedFile?.hash}
         variant="outlined"

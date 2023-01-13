@@ -5,7 +5,7 @@ import React, { Fragment, useState } from "react";
 import { Button } from "@mui/material";
 import UploadComponent from "../components/Upload";
 
-const VerifyView = () => {
+const VerifyView = ({ openSnackbar, closeSnackbar }) => {
   const contractAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3";
   const contractABI = abi.abi;
   const [selectedFile, setSelectedFile] = useState();
@@ -21,7 +21,7 @@ const VerifyView = () => {
     const provider = new ethers.providers.Web3Provider(ethereum, "any");
     const signer = provider.getSigner();
     const contract = new ethers.Contract(contractAddress, contractABI, signer);
-    
+
     const { hash } = selectedFile;
 
     if (!hash || hash.length !== 32) {
@@ -29,14 +29,18 @@ const VerifyView = () => {
     }
 
     const value = await contract.verifyDiploma(hash);
-    console.log(value)
+    console.log(value);
     setValidity(value);
-    setShowState(true)
+    setShowState(true);
+    openSnackbar("verification of document done");
   };
 
   return (
     <Fragment>
-      <UploadComponent setSelectedFile={setSelectedFile} />
+      <UploadComponent
+        setSelectedFile={setSelectedFile}
+        openSnackbar={openSnackbar}
+      />
       <Button
         disabled={!selectedFile?.hash}
         variant="outlined"

@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import { getDocument, GlobalWorkerOptions } from "pdfjs-dist";
 import { Fragment } from "react";
 
-const UploadComponent = ({ setSelectedFile }) => {
+const UploadComponent = ({ setSelectedFile, openSnackbar, closeSnackbar }) => {
   const handleUpload = () => {
     document.getElementById("pdfUpload").click();
   };
@@ -23,6 +23,8 @@ const UploadComponent = ({ setSelectedFile }) => {
 
       setSelectedFile(all);
       console.log(all);
+
+      openSnackbar("file uploaded and ready to interact with");
     });
   };
 

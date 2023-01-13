@@ -79,3 +79,7 @@ p {
   width: 100%;
   gap: 5px;
 }
+
+.MuiSnackbarContent-root {
+  background-color: var(--pruple) !important;
+}
