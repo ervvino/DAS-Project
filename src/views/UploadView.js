@@ -42,12 +42,16 @@ const UploadView = () => {
   };
 
   return (
-    <Fragment>
+    <div className="viewWrapper">
       <UploadComponent setSelectedFile={setSelectedFile} />
-      <Button disabled={!selectedFile?.hash} onClick={issuingAuthority}>
+      <Button
+        disabled={!selectedFile?.hash}
+        variant="outlined"
+        onClick={issuingAuthority}
+      >
         Upload Document to Blockchain
       </Button>
-    </Fragment>
+    </div>
   );
 };
 

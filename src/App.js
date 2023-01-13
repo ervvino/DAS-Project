@@ -32,13 +32,15 @@ const App = () => {
   );
 
   return (
-    <Fragment>
+    <div className="viewWrapper">
       <WalletConnectedDialog
-        isWalletConnected={!!currentAccount || !!(window.ethereum._state.accounts?.[0])}
+        isWalletConnected={
+          !!currentAccount || !!window.ethereum._state.accounts?.[0]
+        }
         connect={() => connectWallet(setCurrentAccount)}
       />
       <RouterProvider router={router} />
-    </Fragment>
+    </div>
   );
 };
 

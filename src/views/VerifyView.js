@@ -37,16 +37,40 @@ const VerifyView = () => {
   return (
     <Fragment>
       <UploadComponent setSelectedFile={setSelectedFile} />
-      <Button disabled={!selectedFile?.hash} onClick={verify}>
+      <Button
+        disabled={!selectedFile?.hash}
+        variant="outlined"
+        onClick={verify}
+      >
         Verify
       </Button>
 
-      {fingerprint && (
+      {
         <div>
-          <p>{validity + ""}</p>
-          <p>{fingerprint}</p>
+          {!!selectedFile && (
+            <Fragment>
+              <p
+                style={{
+                  textDecoration: `underline 4px var(${
+                    validity ? "--green" : "--red"
+                  })`,
+                }}
+              >
+                Validity: {validity + ""}
+              </p>
+              <p
+                style={{
+                  textDecoration: `underline 4px var(${
+                    validity ? "--green" : "--red"
+                  })`,
+                }}
+              >
+                Fingerprint: {fingerprint || "no fingerprint"}
+              </p>
+            </Fragment>
+          )}
         </div>
-      )}
+      }
     </Fragment>
   );
 };

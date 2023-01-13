@@ -9,7 +9,7 @@ const UploadComponent = ({ setSelectedFile }) => {
   };
 
   const changeHandler = async (event) => {
-    const all = {file: null, hash: null}
+    const all = { file: null, hash: null };
     const file = event.target.files[0];
     all.file = file;
 
@@ -18,17 +18,19 @@ const UploadComponent = ({ setSelectedFile }) => {
     const path = (window.URL || window.webkitURL).createObjectURL(file);
     const doc = getDocument(path);
 
-    doc.promise.then(f => {
-    all.hash = f.fingerprints[0];
-    
-    setSelectedFile(all);
-    console.log(all);})
-      
+    doc.promise.then((f) => {
+      all.hash = f.fingerprints[0];
+
+      setSelectedFile(all);
+      console.log(all);
+    });
   };
 
   return (
     <Fragment>
-      <Button onClick={handleUpload}>Upload Diploma</Button>
+      <Button onClick={handleUpload} variant="outlined">
+        Upload Diploma
+      </Button>
       <input
         id="pdfUpload"
         type="file"

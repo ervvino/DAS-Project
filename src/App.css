@@ -15,6 +15,13 @@ body {
   display: flex;
   color: var(--pruple2);
   background-color: var(--yellow);
+  font-family: "Bebas Neue", sans-serif;
+}
+
+p {
+  text-align: center;
+  font-weight: 500;
+  font-size: 30px;
 }
 
 #pdfUpload {
@@ -27,6 +34,7 @@ body {
 
 .MuiButton-outlinedPrimary {
   color: var(--pruple2) !important;
+  border: 1px solid var(--pruple2) !important;
 }
 
 .App {
@@ -60,4 +68,14 @@ body {
   backdrop-filter: blur(5.1px);
   -webkit-backdrop-filter: blur(5.1px);
   border: 1px solid var(--yellow);
+}
+
+.viewWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  gap: 5px;
 }
