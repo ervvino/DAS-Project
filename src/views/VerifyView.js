@@ -8,7 +8,7 @@ import UploadComponent from "../components/Upload";
 import { useNavigate } from "react-router-dom";
 
 const VerifyView = ({ openSnackbar, closeSnackbar }) => {
-  const contractAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3";
+  const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
   const contractABI = abi.abi;
   const [selectedFile, setSelectedFile] = useState();
   const [validity, setValidity] = useState();

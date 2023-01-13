@@ -15,7 +15,7 @@ const UploadView = ({ openSnackbar, closeSnackbar }) => {
   const navigateTo = (path = "/") => navigate(path);
 
   // Contract Address & ABI
-  const contractAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3";
+  const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
   const contractABI = abi.abi;
   const [selectedFile, setSelectedFile] = useState();
   const [currentAccount, setCurrentAccount] = useState("");
@@ -139,7 +139,7 @@ const UploadView = ({ openSnackbar, closeSnackbar }) => {
         Upload Document to Blockchain
       </Button>
       <Button
-        disabled={!selectedFile?.hash && !isInChain}
+        disabled={!selectedFile?.hash || !isInChain}
         variant="outlined"
         onClick={revoke}
       >
