@@ -52,7 +52,7 @@ export const universityCheck = async (
       }
 
       res(val);
-    }, 1500);
+    }, 3000);
   });
 
   setCounter(1);
