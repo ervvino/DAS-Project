@@ -15,7 +15,7 @@ const UploadView = ({ openSnackbar, closeSnackbar }) => {
   const navigateTo = (path = "/") => navigate(path);
 
   // Contract Address & ABI
-  const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+  const contractAddress = "0x800809A15d30A344C54BF39A4891c2D55BE92c72";
   const contractABI = abi.abi;
   const [selectedFile, setSelectedFile] = useState();
   const [currentAccount, setCurrentAccount] = useState("");

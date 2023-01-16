@@ -1,6 +1,5 @@
-require("@nomicfoundation/hardhat-toolbox");
+/**require("@nomicfoundation/hardhat-toolbox");
 
-/** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: "0.8.17",
   paths: {
@@ -13,9 +12,12 @@ module.exports = {
   },
 };
 
-/**
+
 require("@nomiclabs/hardhat-ethers");
 require("@nomiclabs/hardhat-waffle");
+**/
+
+require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config()
 
 const GOERLI_URL = process.env.GOERLI_URL;
@@ -36,5 +38,3 @@ module.exports = {
     }
   }
 };
-
-**/
