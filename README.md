@@ -1,16 +1,4 @@
-# Sample Hardhat Project
+# inDiplomaVeritas
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
-
-Try running some of the following tasks:
-
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
-```
-
-
-Test-Push
+Test-App: http://indiplomaveritas.surge.sh/
+Blockexplorer: https://goerli.etherscan.io/address/0x800809A15d30A344C54BF39A4891c2D55BE92c72
